@@ -6,9 +6,15 @@ using System.Web.Mvc;
 
 namespace ServiceCourse.Web.Controllers
 {
+    
     public class CourseController : Controller
     {
         CourseService service = new CourseService();
+
+        public ActionResult Login()
+        {
+            return View();
+        }
         // GET: Course
         public ActionResult Index()
         {
@@ -37,12 +43,14 @@ namespace ServiceCourse.Web.Controllers
         }
 
         // GET: Course/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Course/Create
+        [Authorize]
         [HttpPost]
         public ActionResult Create(CourseViewModel courseViewModel)
         {
@@ -73,6 +81,7 @@ namespace ServiceCourse.Web.Controllers
         }
 
         // POST: Course/Edit/5
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(CourseViewModel courseViewModel)
         {
