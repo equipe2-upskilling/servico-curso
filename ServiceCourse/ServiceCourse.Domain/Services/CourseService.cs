@@ -69,5 +69,20 @@ namespace ServiceCourse.Domain.Services
         {
             _repository.DeleteCourse(Id);
         }
+
+        public LoginModel GetLogin(string email, string password)
+        {
+            var login =  _repository.GetLogin(email, password);
+
+            var loginModel = new LoginModel()
+            {
+                Id = login.Id,
+                Email = login.Email,
+                Password = login.Password,
+                Salt = login.Salt
+            };
+
+            return loginModel;
+        }
     }
 }

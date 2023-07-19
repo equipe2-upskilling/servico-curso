@@ -1,6 +1,6 @@
-﻿namespace ServiceCourse.Web.Models
+﻿namespace ServiceCourse.Domain.Models
 {
-    public class LoginViewModel
+    public class LoginModel
     {
         public int Id { get; set; }
         public string Email { get; set; }

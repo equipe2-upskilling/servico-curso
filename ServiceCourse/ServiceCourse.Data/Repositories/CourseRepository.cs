@@ -84,5 +84,15 @@ namespace ServiceCourse.Data.Repositories
                 connection.Execute(query, parameters);
             }
         }
+
+        public Login GetLogin(string email, string password)
+        {
+            using (var connection = new NpgsqlConnection(context.ConnectionString()))
+            {
+                connection.Open();
+                var sql = "SELECT * FROM courses WHERE Id = @Id";
+                return connection.QueryFirstOrDefault<Login>(sql, new { Email = email, Password = password});
+            }
+        }
     }
 }

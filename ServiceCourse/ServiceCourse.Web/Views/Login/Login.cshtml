@@ -11,9 +11,9 @@
     @Html.AntiForgeryToken()
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Login, new { @class = "control-label col-md-2" })
+        @Html.LabelFor(m => m.Email, new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Login, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
     </div>
 

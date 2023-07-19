@@ -6,16 +6,11 @@ using System.Web.Mvc;
 
 namespace ServiceCourse.Web.Controllers
 {
-    
+    [Authorize]
     public class CourseController : Controller
     {
         CourseService service = new CourseService();
 
-        public ActionResult Login()
-        {
-            return View();
-        }
-        // GET: Course
         public ActionResult Index()
         {
             var courses = service.GetCourses();
@@ -36,21 +31,16 @@ namespace ServiceCourse.Web.Controllers
             return View(coursesViewModel);
         }
 
-        // GET: Course/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Course/Create
-        [Authorize]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Course/Create
-        [Authorize]
         [HttpPost]
         public ActionResult Create(CourseViewModel courseViewModel)
         {
@@ -74,14 +64,11 @@ namespace ServiceCourse.Web.Controllers
             }
         }
 
-        // GET: Course/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Course/Edit/5
-        [Authorize]
         [HttpPost]
         public ActionResult Edit(CourseViewModel courseViewModel)
         {
@@ -105,13 +92,11 @@ namespace ServiceCourse.Web.Controllers
             }
         }
 
-        // GET: Course/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Course/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
