@@ -25,6 +25,10 @@ namespace ServiceCourse.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/sb-admin-2.min.css",
+                      "~/Content/sb-admin-2.css"));
         }
     }
 }
