@@ -33,7 +33,19 @@ namespace ServiceCourse.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            var course = service.GetCourseById(id);
+
+            var courseViewModel = new CourseViewModel()
+            {
+                Id = course.Id,
+                Name = course.Name,
+                Description = course.Description,
+                Duration = course.Duration,
+                Price = course.Price,
+                Status = (CourseViewModel.EnrollmentStatus)course.Status
+            };
+
+            return View(courseViewModel);
         }
 
         public ActionResult Create()
@@ -66,7 +78,19 @@ namespace ServiceCourse.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            var course = service.GetCourseById(id);
+
+            var courseViewModel = new CourseViewModel()
+            {
+                Id = course.Id,
+                Name = course.Name,
+                Description = course.Description,
+                Duration = course.Duration,
+                Price = course.Price,
+                Status = (CourseViewModel.EnrollmentStatus)course.Status
+            };
+
+            return View(courseViewModel);
         }
 
         [HttpPost]

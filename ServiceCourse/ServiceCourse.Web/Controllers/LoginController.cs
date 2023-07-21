@@ -1,5 +1,4 @@
-﻿using ServiceCourse.Domain.Authentication;
-using ServiceCourse.Domain.Services;
+﻿using ServiceCourse.Domain.Services;
 using ServiceCourse.Web.Models;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -9,8 +8,7 @@ namespace ServiceCourse.Web.Controllers
     public class LoginController : Controller
     {
         // GET: Login
-        CourseService service = new CourseService();
-        CryptoHelper cryptoHelper = new CryptoHelper();
+        LoginService service = new LoginService();
 
         public ActionResult Login()
         {
@@ -20,10 +18,10 @@ namespace ServiceCourse.Web.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel login)
         {
-            var admin = service.GetLogin(login.Email, login.Password);
-            var pass = cryptoHelper.Encrypt(login.Password, login.Salt);
+            var user = service.GetuserByEmail(login.Email, login.Password);
+            var authenticate = service.Authenticate(login.Password, user.Password, user.Salt);
 
-            if (admin.Id > 0 && pass == login.Password)
+            if (authenticate)
             {
                 FormsAuthentication.RedirectFromLoginPage(login.Email, createPersistentCookie: false);
                 return RedirectToAction("Index", "Course");
