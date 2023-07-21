@@ -12,9 +12,8 @@
 
         public enum EnrollmentStatus
         {
-            Aguardando = 1,
-            Ativo = 2,
-            Inativo = 3
+            Abertas = 1,
+            Fechadas = 2
         }
     }
 }

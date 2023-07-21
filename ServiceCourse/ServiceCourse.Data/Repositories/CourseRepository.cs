@@ -67,9 +67,9 @@ namespace ServiceCourse.Data.Repositories
             {
                 string query = "UPDATE courses " +
                     "set Name = @Name, " +
-                    "Description = @Description " +
-                    "Duration = @Duration " +
-                    "Price = @Price " +
+                    "Description = @Description, " +
+                    "Duration = @Duration, " +
+                    "Price = @Price, " +
                     "EnrollmentStatusId = @EnrollmentStatusId " +
                     "WHERE Id = @Id";
 

@@ -100,10 +100,12 @@ namespace ServiceCourse.Web.Controllers
             {
                 CourseModel course = new CourseModel()
                 {
+                    Id = courseViewModel.Id,
                     Name = courseViewModel.Name,
                     Description = courseViewModel.Description,
                     Duration = courseViewModel.Duration,
                     Price = courseViewModel.Price,
+                    Status = (CourseModel.EnrollmentStatus)courseViewModel.Status
                 };
 
                 service.UpdateCourse(course);
