@@ -1,6 +1,7 @@
 ﻿using ServiceCourse.Domain.Models;
 using ServiceCourse.Domain.Services;
 using ServiceCourse.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -28,6 +29,10 @@ namespace ServiceCourse.Web.Controllers
                     Status = (CourseViewModel.EnrollmentStatus)course.Status
                 });
             }
+            if (courses.Count == 0 || courses == null)
+            {
+                ViewBag.Message = "Não existem cursos cadastrados.";
+            }
             return View(coursesViewModel);
         }
 
@@ -54,6 +59,8 @@ namespace ServiceCourse.Web.Controllers
         }
 
         [HttpPost]
+        //[ValidateAntiForgeryToken]
+
         public ActionResult Create(CourseViewModel courseViewModel)
         {
             try
@@ -70,7 +77,7 @@ namespace ServiceCourse.Web.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }
@@ -117,25 +124,15 @@ namespace ServiceCourse.Web.Controllers
                 return View();
             }
         }
-
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
                 service.DeleteCourse(id);
-
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+           catch { return View(); }
         }
     }
 }

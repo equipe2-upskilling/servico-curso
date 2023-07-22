@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="~/img/site-icon.jpg" />
     <title>@ViewBag.Title - Cadastro de cursos</title>
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/sb-admin-2")
 </head>
 <body>
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -30,9 +35,7 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/sb-admin-2")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
