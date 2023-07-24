@@ -4,14 +4,11 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>CourseViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+           Nome
         </dt>
 
         <dd>
@@ -19,7 +16,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            Descrição
         </dt>
 
         <dd>
@@ -27,24 +24,31 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Duration)
+            Duração
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Duration)
+            @Html.DisplayFor(model => model.Duration) meses
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            Preço
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            R$@Html.DisplayFor(model => model.Price)
         </dd>
 
+        <dt>
+           Status
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar", "Index")
 </p>

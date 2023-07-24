@@ -10,9 +10,21 @@ namespace ServiceCourse.Domain.Services
     {
         public CourseRepository _repository = new CourseRepository();
 
-        public Course GetCourseById(int Id)
+        public CourseModel GetCourseById(int Id)
         {
-            return _repository.GetCourseById(Id);
+            var course = _repository.GetCourseById(Id);
+
+            var courseModel = new CourseModel()
+            {
+                Id = course.Id,
+                Name = course.Name,
+                Description = course.Description,
+                Duration = course.Duration,
+                Price = course.Price,
+                Status = (CourseModel.EnrollmentStatus)course.EnrollmentStatusId
+            };
+
+            return courseModel;
         }
 
         public List<CourseModel> GetCourses()
@@ -44,7 +56,7 @@ namespace ServiceCourse.Domain.Services
                 Description = courseModel.Description,
                 Duration = courseModel.Duration,
                 Price = courseModel.Price,
-                EnrollmentStatusId = (int)Course.EnrollmentStatus.Aguardando
+                EnrollmentStatusId = (int)Course.EnrollmentStatus.Abertas
             };
 
             _repository.CreateCourse(course);
@@ -54,6 +66,7 @@ namespace ServiceCourse.Domain.Services
         {
             Course course = new Course()
             {
+                Id = courseModel.Id,
                 Name = courseModel.Name,
                 Description = courseModel.Description,
                 Duration = courseModel.Duration,

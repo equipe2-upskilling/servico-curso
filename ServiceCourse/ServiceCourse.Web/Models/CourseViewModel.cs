@@ -1,4 +1,6 @@
-﻿namespace ServiceCourse.Web.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ServiceCourse.Web.Models
 {
     public class CourseViewModel
     {
@@ -11,9 +13,11 @@
 
         public enum EnrollmentStatus
         {
-            Aguardando = 1,
-            Ativo = 2,
-            Inativo = 3
+            [Display(Name = "Abertas")]
+            Abertas = 1,
+
+            [Display(Name = "Fechadas")]
+            Fechadas = 2
         }
     }
 }
