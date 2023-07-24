@@ -5,11 +5,8 @@
 }
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
+<div class="form-horizontal">
+    <form id="createForm">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group row">
@@ -33,17 +30,18 @@
         <div class="form-group row">
             <div class="col-sm-6 mb-3 mb-sm-0">
                 <label for="Name">Preço</label>
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Preço", @type = "number"} })
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Preço" } })
             </div>
         </div>
         <div class="form-group">
-            <button type="submit" value="Create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <button type="submit" value="Create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="btnSubmit">
                 <i class="fas fa-download fa-sm text-white-50"></i>
                 Salvar
             </button>
         </div>
-    </div>
-}
+    </form>
+
+</div>
 
 <div>
     @Html.ActionLink("Voltar", "Index")
@@ -51,4 +49,65 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+        function createCourse() {
+          $('#createForm').submit(function(e) {
+              e.preventDefault();
+              debugger;
+
+              var priceInput = $('#Price');
+              var price = parseFloat(priceInput.val().replace(',', '.'));
+
+              if (validateForm()) {
+                  var formData = {
+                      Name: $('#Name').val(),
+                      Description: $('#Description').val(),
+                      Duration: $('#Duration').val(),
+                      Price: price
+                  };
+                  var jsonData = JSON.stringify(formData);
+              $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Create", "Course")',
+                  data: jsonData,
+                  contentType: 'application/json',
+
+                success: function(result) {
+                    window.location.href = '@Url.Action("Index", "Course")';
+                },
+                error: function(xhr, status, error) {
+                  alert('Ocorreu um erro ao criar o registro: ' + error);
+                }
+              });
+            }
+          });
+    };
+
+    function isValidNumber(value) {
+        return !isNaN(parseFloat(value)) && isFinite(value);
+    }
+
+    function validateForm() {
+        var isValid = true;
+
+        $('input[type="text"], input[type="number"]').each(function () {
+            if ($.trim($(this).val()) === '') {
+                isValid = false;
+                $(this).addClass('border-danger'); 
+            } else {
+                $(this).removeClass('border-danger'); 
+            }
+        });
+
+
+        return isValid;
+    }
+
+    $(document).ready(function () {
+        createCourse();
+    });
+
+
+</script>
 }

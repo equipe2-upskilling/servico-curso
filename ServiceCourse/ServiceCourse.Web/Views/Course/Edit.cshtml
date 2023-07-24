@@ -4,54 +4,52 @@
     ViewBag.Title = "Edit";
 }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>CourseViewModel</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Id)
+    <form id="editForm">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
 
-    <div class="form-group row">
-        <div class="col-sm-6 mb-3 mb-sm-0">
-            <label for="Name">Nome</label>
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nome" } })
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label for="Name">Nome</label>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nome" } })
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-6 mb-3 mb-sm-0">
-            <label for="Name">Descrição</label>
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Descrição" } })
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label for="Name">Descrição</label>
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Descrição" } })
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-6 mb-3 mb-sm-0">
-            <label for="Name">Duração</label>
-            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control", @placeholder = "Duração" } })
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label for="Name">Duração</label>
+                @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control", @placeholder = "Duração" } })
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-6 mb-3 mb-sm-0">
-            <label for="Name">Preço</label>
-            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @placeholder = "Preço" } })
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label for="Name">Preço</label>
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @placeholder = "Preço" } })
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-6 mb-3 mb-sm-0">
-            <label for="Name">Status</label>
-            @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetValues(typeof(ServiceCourse.Web.Models.CourseViewModel.EnrollmentStatus))), new { @class = "form-control" })
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label for="Name">Status</label>
+                @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetValues(typeof(ServiceCourse.Web.Models.CourseViewModel.EnrollmentStatus))), new { @class = "form-control" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <button type="submit" value="Edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i>
-            Salvar
-        </button>
-    </div>
+        <div class="form-group">
+            <button type="submit" value="Edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-download fa-sm text-white-50"></i>
+                Salvar
+            </button>
+        </div>
+    </form>
 </div>
-}
+
 
 <div>
     @Html.ActionLink("Voltar", "Index")
@@ -59,4 +57,69 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+        function validateForm() {
+            var isValid = true;
+
+            $('input[type="text"], input[type="number"]').each(function () {
+                if ($.trim($(this).val()) === '') {
+                    isValid = false;
+                    $(this).addClass('border-danger');
+                } else {
+                    $(this).removeClass('border-danger');
+                }
+            });
+            var priceInput = $('#Price');
+            var priceValue = parseFloat(priceInput.val().replace(',', '.'));
+
+            if (isNaN(priceValue)) {
+                priceInput.addClass('border-danger');
+                isValid = false;
+            } else {
+                priceInput.removeClass('border-danger');
+            }
+
+            if (!isValid) {
+                alert('Por favor, preencha todos os campos obrigatórios e verifique o campo "Preço".');
+            }
+
+            return isValid;
+    };
+    function editForm() {
+         $('#editForm').submit(function (e) {
+             e.preventDefault();
+            if (validateForm()) {
+
+                var priceInput = $('#Price');
+                var price = parseFloat(priceInput.val().replace(',', '.'));
+
+                var formData = {
+                    Name: $('#Name').val(),
+                    Description: $('#Description').val(),
+                    Duration: $('#Duration').val(),
+                    Price: price,
+                    Status: $('#Status').val()
+                };
+                var jsonData = JSON.stringify(formData);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Edit", "Course", new { id = Model.Id })',
+                    data: jsonData,
+                    contentType: 'application/json',
+                    success: function (result) {
+                         window.location.href = '@Url.Action("Index", "Course")';
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Ocorreu um erro ao editar o registro: ' + error);
+                    }
+                });
+             }
+         });
+    }
+    $(document).ready(function () {
+        editForm();
+    });
+</script>
 }

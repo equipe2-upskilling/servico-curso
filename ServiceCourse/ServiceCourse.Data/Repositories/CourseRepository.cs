@@ -41,7 +41,7 @@ namespace ServiceCourse.Data.Repositories
                 parameters.Add("Name", course.Name, DbType.String);
                 parameters.Add("Description", course.Description, DbType.String);
                 parameters.Add("Duration", course.Duration, DbType.Int32);
-                parameters.Add("Price", course.Price, DbType.Int64);
+                parameters.Add("Price", course.Price, DbType.Decimal);
                 parameters.Add("EnrollmentStatusId", course.EnrollmentStatusId, DbType.Int32);
 
                 connection.Execute(query, parameters);
@@ -78,7 +78,7 @@ namespace ServiceCourse.Data.Repositories
                 parameters.Add("Name", course.Name, DbType.String);
                 parameters.Add("Description", course.Description, DbType.String);
                 parameters.Add("Duration", course.Duration, DbType.Int32);
-                parameters.Add("Price", course.Price, DbType.Int64);
+                parameters.Add("Price", course.Price, DbType.Decimal);
                 parameters.Add("EnrollmentStatusId", course.EnrollmentStatusId, DbType.Int32);
 
                 connection.Execute(query, parameters);
