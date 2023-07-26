@@ -16,7 +16,7 @@ namespace ServiceCourse.Domain.Services
 
             var courseModel = new CourseModel()
             {
-                Id = course.Id,
+                CourseId = course.CourseId,
                 Name = course.Name,
                 Description = course.Description,
                 Duration = course.Duration,
@@ -36,7 +36,7 @@ namespace ServiceCourse.Domain.Services
             {
                 coursesModel.Add(new CourseModel
                 {
-                    Id = c.Id,
+                    CourseId = c.CourseId,
                     Name = c.Name,
                     Description = c.Description,
                     Duration = c.Duration,
@@ -66,7 +66,7 @@ namespace ServiceCourse.Domain.Services
         {
             Course course = new Course()
             {
-                Id = courseModel.Id,
+                CourseId = courseModel.CourseId,
                 Name = courseModel.Name,
                 Description = courseModel.Description,
                 Duration = courseModel.Duration,

@@ -9,7 +9,7 @@
     <form id="editForm">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CourseId)
 
         <div class="form-group row">
             <div class="col-sm-6 mb-3 mb-sm-0">
@@ -95,6 +95,7 @@
                 var price = parseFloat(priceInput.val().replace(',', '.'));
 
                 var formData = {
+                    CourseId: $('#CourseId').val(),
                     Name: $('#Name').val(),
                     Description: $('#Description').val(),
                     Duration: $('#Duration').val(),
@@ -105,7 +106,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("Edit", "Course", new { id = Model.Id })',
+                    url: '@Url.Action("Edit", "Course", new { id = Model.CourseId })',
                     data: jsonData,
                     contentType: 'application/json',
                     success: function (result) {

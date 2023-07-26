@@ -134,7 +134,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\DataBaseContext_1.cs" />
+    <Compile Include="Context\DataBaseContext.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

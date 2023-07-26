@@ -11,13 +11,13 @@ namespace ServiceCourse.Data.Repositories
     public class CourseRepository
     {
         public DataBaseContext context = new DataBaseContext();
-        public Course GetCourseById(int id)
+        public Course GetCourseById(int courseId)
         {
             using (var connection = new NpgsqlConnection(context.ConnectionString()))
             {
                 connection.Open();
-                var sql = "SELECT * FROM courses WHERE Id = @Id";
-                return connection.QueryFirstOrDefault<Course>(sql, new { Id = id });
+                var sql = "SELECT * FROM courses WHERE courseid = @Id";
+                return connection.QueryFirstOrDefault<Course>(sql, new { Id = courseId });
             }
         }
         public List<Course> GetCourses()
@@ -48,14 +48,14 @@ namespace ServiceCourse.Data.Repositories
             }
         }
 
-        public void DeleteCourse(int id)
+        public void DeleteCourse(int courseId)
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(context.ConnectionString()))
             {
-                string query = "DELETE FROM courses WHERE Id = :Id";
+                string query = "DELETE FROM courses WHERE courseId = :courseId";
 
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("Id", id, DbType.Int32);
+                parameters.Add("courseId", courseId, DbType.Int32);
 
                 connection.Execute(query, parameters);
             }
@@ -71,10 +71,10 @@ namespace ServiceCourse.Data.Repositories
                     "Duration = @Duration, " +
                     "Price = @Price, " +
                     "EnrollmentStatusId = @EnrollmentStatusId " +
-                    "WHERE Id = @Id";
+                    "WHERE courseId = @CourseId";
 
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("Id", course.Id, DbType.Int32);
+                parameters.Add("CourseId", course.CourseId, DbType.Int32);
                 parameters.Add("Name", course.Name, DbType.String);
                 parameters.Add("Description", course.Description, DbType.String);
                 parameters.Add("Duration", course.Duration, DbType.Int32);

@@ -21,7 +21,7 @@ namespace ServiceCourse.Web.Controllers
             {
                 coursesViewModel.Add(new CourseViewModel
                 {
-                    Id = course.Id,
+                    CourseId = course.CourseId,
                     Name = course.Name,
                     Description = course.Description,
                     Duration = course.Duration,
@@ -42,7 +42,7 @@ namespace ServiceCourse.Web.Controllers
 
             var courseViewModel = new CourseViewModel()
             {
-                Id = course.Id,
+                CourseId = course.CourseId,
                 Name = course.Name,
                 Description = course.Description,
                 Duration = course.Duration,
@@ -89,7 +89,7 @@ namespace ServiceCourse.Web.Controllers
 
             var courseViewModel = new CourseViewModel()
             {
-                Id = course.Id,
+                CourseId = course.CourseId,
                 Name = course.Name,
                 Description = course.Description,
                 Duration = course.Duration,
@@ -107,7 +107,7 @@ namespace ServiceCourse.Web.Controllers
             {
                 CourseModel course = new CourseModel()
                 {
-                    Id = courseViewModel.Id,
+                    CourseId = courseViewModel.CourseId,
                     Name = courseViewModel.Name,
                     Description = courseViewModel.Description,
                     Duration = courseViewModel.Duration,

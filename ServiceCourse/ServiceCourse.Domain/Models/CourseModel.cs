@@ -2,11 +2,11 @@
 {
     public class CourseModel
     {
-        public int Id { get; set; }
+        public int CourseId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Duration { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
         public EnrollmentStatus Status { get; set; }
 
 

@@ -1,5 +1,4 @@
 ﻿function deleteCourse(courseId) {
-    debugger;
     // Chamar a API ou fazer a chamada AJAX para deletar o curso
     $.ajax({
         url: '/Course/Delete/' + courseId,
