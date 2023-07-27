@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ServiceCourse.Web.Models.CourseViewModel>
+﻿@model IEnumerable<ServiceCourse.Web.Models.LessonViewModel>
 
 
 @{
@@ -7,9 +7,9 @@
 
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <a href="@Url.Action("Create", "Course")" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+    <a href="@Url.Action("Create", "Lesson", new { id = ViewBag.CourseId })" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
         <i class="fas fa-download fa-sm text-white-50"></i>
-        Novo curso
+        Nova lição
     </a>
 </div>
 
@@ -32,13 +32,10 @@
                     Descrição
                 </th>
                 <th>
-                    Duração
+                    Link da aula
                 </th>
                 <th>
-                    Preço
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
+                   Link da imagem
                 </th>
                 <th></th>
             </tr>
@@ -47,7 +44,7 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CourseId)
+                        @Html.DisplayFor(modelItem => item.LessonId)
                     </td>
                     <th>
                         @Html.DisplayFor(modelItem => item.Name)
@@ -56,28 +53,21 @@
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Duration) meses
+                        @Html.DisplayFor(modelItem => item.LessonUrl)
                     </td>
                     <td>
-                       R$@Html.DisplayFor(modelItem => item.Price)
+                        @Html.DisplayFor(modelItem => item.Image)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Index", "Lesson", new { id = item.CourseId })" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
-                            <i class="fas fa-download fa-sm text-white-50"></i>
-                            Aulas
-                        </a>
-                        <a href="@Url.Action("Edit", "Course", new { id = item.CourseId })" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <a href="@Url.Action("Edit", "Lesson", new { id = item.LessonId })" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-download fa-sm text-white-50"></i>
                             Editar
                         </a>
-                        <a href="@Url.Action("Details", "Course", new { id = item.CourseId })" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">
+                        <a href="@Url.Action("Details", "Lesson", new { id = item.LessonId })" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">
                             <i class="fas fa-download fa-sm text-white-50"></i>
                             Detalhes
                         </a>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm delete-link" data-course-id="@item.CourseId" data-delete-url="@Url.Action("Delete", "Course", new { id = item.CourseId })">
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm delete-link" data-lesson-id="@item.LessonId" data-delete-url="@Url.Action("Delete", "Lesson", new { id = item.LessonId })">
                             <i class="fas fa-download fa-sm text-white-50"></i>
                             Excluir
                         </a>
@@ -112,4 +102,4 @@
 
 
 
-@Scripts.Render("~/course")
+@Scripts.Render("~/lesson")

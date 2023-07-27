@@ -24,7 +24,7 @@ namespace ServiceCourse.Web.Controllers
             if (authenticate)
             {
                 FormsAuthentication.RedirectFromLoginPage(login.Email, createPersistentCookie: false);
-                return RedirectToAction("Index", "Course");
+                return RedirectToAction("Index", "Home");
 
             }
             else

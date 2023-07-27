@@ -3,6 +3,7 @@ using ServiceCourse.Domain.Services;
 using ServiceCourse.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace ServiceCourse.Web.Controllers
@@ -10,11 +11,12 @@ namespace ServiceCourse.Web.Controllers
     [Authorize]
     public class CourseController : Controller
     {
-        CourseService service = new CourseService();
+        CourseService _courseService = new CourseService();
+        TeacherService _teacherService = new TeacherService();
 
         public ActionResult Index()
         {
-            var courses = service.GetCourses();
+            var courses = _courseService.GetCourses();
             var coursesViewModel = new List<CourseViewModel>();
 
             foreach (var course in courses)
@@ -25,6 +27,8 @@ namespace ServiceCourse.Web.Controllers
                     Name = course.Name,
                     Description = course.Description,
                     Duration = course.Duration,
+                    CoverImg = course.CoverImg,
+                    TeacherId = course.TeacherId,
                     Price = course.Price,
                     Status = (CourseViewModel.EnrollmentStatus)course.Status
                 });
@@ -38,7 +42,12 @@ namespace ServiceCourse.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            var course = service.GetCourseById(id);
+            var course = _courseService.GetCourseById(id);
+
+            var teacher = _teacherService.GetTeacherById(course.TeacherId);
+
+            if (teacher != null)
+                course.TeacherName = teacher.TeacherName;
 
             var courseViewModel = new CourseViewModel()
             {
@@ -47,6 +56,9 @@ namespace ServiceCourse.Web.Controllers
                 Description = course.Description,
                 Duration = course.Duration,
                 Price = course.Price,
+                CoverImg = course.CoverImg,
+                TeacherId = course.TeacherId,
+                TeacherName = course.TeacherName,
                 Status = (CourseViewModel.EnrollmentStatus)course.Status
             };
 
@@ -55,12 +67,14 @@ namespace ServiceCourse.Web.Controllers
 
         public ActionResult Create()
         {
+            var teachers = _teacherService.GetTeachers();
+
+            ViewBag.Teachers = new SelectList(teachers, "Id", "TeacherName");
+
             return View();
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-
         public ActionResult Create(CourseViewModel courseViewModel)
         {
             try
@@ -70,22 +84,37 @@ namespace ServiceCourse.Web.Controllers
                     Name = courseViewModel.Name,
                     Description = courseViewModel.Description,
                     Duration = courseViewModel.Duration,
+                    TeacherId = courseViewModel.TeacherId,
+                    CoverImg = courseViewModel.CoverImg,
                     Price = courseViewModel.Price,
                 };
 
-                service.CreateCourse(course);
+                _courseService.CreateCourse(course);
 
-                return RedirectToAction("Index");
+                return Json(new { success = true });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return View();
+                return Json(new { success = false, errorMessage = ex.Message });
             }
         }
 
         public ActionResult Edit(int id)
         {
-            var course = service.GetCourseById(id);
+            var course = _courseService.GetCourseById(id);
+            var teachers = _teacherService.GetTeachers();
+
+            var selectedTeacher = teachers.FirstOrDefault(p => p.Id == course.TeacherId);
+            if (selectedTeacher != null)
+            {
+                teachers.Insert(0, selectedTeacher);
+            }
+            else
+            {
+                teachers.Insert(0, new TeacherModel { Id = 0, TeacherName = "Selecione um professor" });
+            }
+
+            ViewBag.Teachers = new SelectList(teachers.Distinct(), "Id", "TeacherName");
 
             var courseViewModel = new CourseViewModel()
             {
@@ -93,6 +122,8 @@ namespace ServiceCourse.Web.Controllers
                 Name = course.Name,
                 Description = course.Description,
                 Duration = course.Duration,
+                TeacherId = course.TeacherId,
+                CoverImg = course.CoverImg,
                 Price = course.Price,
                 Status = (CourseViewModel.EnrollmentStatus)course.Status
             };
@@ -111,17 +142,19 @@ namespace ServiceCourse.Web.Controllers
                     Name = courseViewModel.Name,
                     Description = courseViewModel.Description,
                     Duration = courseViewModel.Duration,
+                    TeacherId = courseViewModel.TeacherId,
+                    CoverImg = courseViewModel.CoverImg,
                     Price = courseViewModel.Price,
                     Status = (CourseModel.EnrollmentStatus)courseViewModel.Status
                 };
 
-                service.UpdateCourse(course);
+                _courseService.UpdateCourse(course);
 
-                return RedirectToAction("Index");
+                return Json(new { success = true });
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new { success = false, errorMessage = ex.Message });
             }
         }
         [HttpPost]
@@ -129,10 +162,13 @@ namespace ServiceCourse.Web.Controllers
         {
             try
             {
-                service.DeleteCourse(id);
-                return RedirectToAction("Index");
+                _courseService.DeleteCourse(id);
+                return Json(new { success = true });
             }
-           catch { return View(); }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, errorMessage = ex.Message });
+            }
         }
     }
 }

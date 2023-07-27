@@ -1,7 +1,6 @@
 ﻿using ServiceCourse.Data.Entities;
 using ServiceCourse.Data.Repositories;
 using ServiceCourse.Domain.Models;
-using System;
 using System.Collections.Generic;
 
 namespace ServiceCourse.Domain.Services
@@ -20,7 +19,9 @@ namespace ServiceCourse.Domain.Services
                 Name = course.Name,
                 Description = course.Description,
                 Duration = course.Duration,
+                TeacherId = course.TeacherId,
                 Price = course.Price,
+                CoverImg = course.CoverImg,
                 Status = (CourseModel.EnrollmentStatus)course.EnrollmentStatusId
             };
 
@@ -40,7 +41,9 @@ namespace ServiceCourse.Domain.Services
                     Name = c.Name,
                     Description = c.Description,
                     Duration = c.Duration,
+                    TeacherId = c.TeacherId,
                     Price = c.Price,
+                    CoverImg = c.CoverImg,
                     Status = (CourseModel.EnrollmentStatus)c.EnrollmentStatusEnum
                 });
             }
@@ -56,6 +59,8 @@ namespace ServiceCourse.Domain.Services
                 Description = courseModel.Description,
                 Duration = courseModel.Duration,
                 Price = courseModel.Price,
+                TeacherId = courseModel.TeacherId,
+                CoverImg = courseModel.CoverImg,
                 EnrollmentStatusId = (int)Course.EnrollmentStatus.Abertas
             };
 
@@ -71,6 +76,8 @@ namespace ServiceCourse.Domain.Services
                 Description = courseModel.Description,
                 Duration = courseModel.Duration,
                 Price = courseModel.Price,
+                TeacherId = courseModel.TeacherId,
+                CoverImg = courseModel.CoverImg,
                 EnrollmentStatusId = (int)courseModel.Status
             };
 
