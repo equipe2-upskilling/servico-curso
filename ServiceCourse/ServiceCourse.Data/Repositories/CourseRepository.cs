@@ -43,6 +43,8 @@ namespace ServiceCourse.Data.Repositories
                 parameters.Add("Duration", course.Duration, DbType.Int32);
                 parameters.Add("Price", course.Price, DbType.Decimal);
                 parameters.Add("EnrollmentStatusId", course.EnrollmentStatusId, DbType.Int32);
+                parameters.Add("CoverImg", course.CoverImg, DbType.String);
+                parameters.Add("TeacherId", course.TeacherId, DbType.Int32);
 
                 connection.Execute(query, parameters);
             }
@@ -70,7 +72,9 @@ namespace ServiceCourse.Data.Repositories
                     "Description = @Description, " +
                     "Duration = @Duration, " +
                     "Price = @Price, " +
-                    "EnrollmentStatusId = @EnrollmentStatusId " +
+                    "EnrollmentStatusId = @EnrollmentStatusId, " +
+                    "CoverImg = @CoverImg, " +
+                    "TeacherId = @TeacherId " +
                     "WHERE courseId = @CourseId";
 
                 DynamicParameters parameters = new DynamicParameters();
@@ -80,6 +84,8 @@ namespace ServiceCourse.Data.Repositories
                 parameters.Add("Duration", course.Duration, DbType.Int32);
                 parameters.Add("Price", course.Price, DbType.Decimal);
                 parameters.Add("EnrollmentStatusId", course.EnrollmentStatusId, DbType.Int32);
+                parameters.Add("CoverImg", course.CoverImg, DbType.String);
+                parameters.Add("TeacherId", course.TeacherId, DbType.Int32);
 
                 connection.Execute(query, parameters);
             }

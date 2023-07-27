@@ -1,0 +1,67 @@
+﻿@model ServiceCourse.Web.Models.LessonViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nome
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            Descrição
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            Video
+        </dt>
+
+        <dd>
+            @if (Model.Image is null)
+            {
+                <p>Nenhuma imagem cadastrada</p>
+            }
+            else
+            {
+                <div class="form-group">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="@Model.LessonUrl" ></iframe>
+                    </div>
+                </div>
+            }
+        </dd>
+
+        <dt>
+            Imagem
+        </dt>
+
+        <dd>
+            @if (Model.Image is null)
+            {
+                <p>Nenhuma imagem cadastrada</p>
+            }
+            else
+            {
+                <div class="col-sm-6">
+                    <img id="imgPreview" src="@Html.DisplayFor(model => model.Image)" alt="Pré-visualização da Imagem" class="img-fluid" style="max-height: 200px; max-width: 200px;" />
+                </div>
+            }
+
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.LessonId }) |
+    @Html.ActionLink("Voltar", "Index", new { id = Model.CourseId })
+</p>

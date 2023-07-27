@@ -8,7 +8,8 @@
         public int Duration { get; set; }
         public double Price { get; set; }
         public EnrollmentStatus Status { get; set; }
-
+        public string CoverImg { get; set; }
+        public int TeacherId { get; set; }
 
         public enum EnrollmentStatus
         {

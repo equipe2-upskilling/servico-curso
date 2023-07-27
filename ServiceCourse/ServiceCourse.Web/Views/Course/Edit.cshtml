@@ -110,10 +110,12 @@
                     data: jsonData,
                     contentType: 'application/json',
                     success: function (result) {
-                         window.location.href = '@Url.Action("Index", "Course")';
+                        if (result.success) {
+                             window.location.href = '@Url.Action("Index", "Course")';
+                        }
                     },
                     error: function (xhr, status, error) {
-                        alert('Ocorreu um erro ao editar o registro: ' + error);
+                        alert('Ocorreu um erro ao editar o registro: ' + errorMessage);
                     }
                 });
              }

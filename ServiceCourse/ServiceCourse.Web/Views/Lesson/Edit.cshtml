@@ -1,0 +1,117 @@
+﻿@model ServiceCourse.Web.Models.LessonViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+<div class="form-horizontal">
+    <form id="editForm">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.LessonId)
+        @Html.HiddenFor(model => model.CourseId)
+
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label for="Name">Nome</label>
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nome" } })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label for="Name">Descrição</label>
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Descrição" } })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label for="Name">Duração</label>
+                @Html.EditorFor(model => model.LessonUrl, new { htmlAttributes = new { @class = "form-control", @placeholder = "Url" } })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label for="Name">Preço</label>
+                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control", @placeholder = "Imagem" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" value="Edit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-download fa-sm text-white-50"></i>
+                Salvar
+            </button>
+        </div>
+    </form>
+</div>
+
+
+<div>
+    @Html.ActionLink("Voltar", "Index", new { id = ViewBag.CourseId })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/lesson")
+
+    <script>
+        function validateForm() {
+            var isValid = true;
+            var requiredFields = ['Name', 'Description', 'LessonUrl'];
+
+            for (var i = 0; i < requiredFields.length; i++) {
+                var fieldName = requiredFields[i];
+                var fieldValue = $.trim($('#' + fieldName).val());
+
+                if (fieldValue === '') {
+                    $('#' + fieldName).addClass('border-danger');
+                    isValid = false;
+                } else {
+                    $('#' + fieldName).removeClass('border-danger');
+                }
+            }
+
+            if (!isValid) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+            }
+
+            return isValid;
+        };
+
+        function editForm() {
+            $('#editForm').submit(function (e) {
+                e.preventDefault();
+                if (validateForm()) {
+                    var courseId = $('#CourseId').val();
+                    var formData = {
+                        LessonId: $('#LessonId').val(),
+                        CourseId: $('#CourseId').val(),
+                        Name: $('#Name').val(),
+                        Description: $('#Description').val(),
+                        LessonUrl: $('#LessonUrl').val(),
+                        Image: $('#Image').val()
+                    };
+                    var jsonData = JSON.stringify(formData);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Lesson/Edit/' + courseId,
+                        data: jsonData,
+                        contentType: 'application/json',
+                        success: function (result) {
+                            if (result.success) {
+                                window.location.href = '/Lesson/Index/' + courseId;
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Ocorreu um erro ao editar o registro: ' + result.errorMessage);
+                        }
+                    });
+                }
+            });
+        }
+        $(document).ready(function () {
+            editForm();
+        });
+    </script>
+}

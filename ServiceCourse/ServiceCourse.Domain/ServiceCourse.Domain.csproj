@@ -43,9 +43,12 @@
   <ItemGroup>
     <Compile Include="Authentication\CryptoHelper.cs" />
     <Compile Include="Models\CourseModel.cs" />
+    <Compile Include="Models\LessonModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CourseService.cs" />
+    <Compile Include="Services\LessonService.cs" />
     <Compile Include="Services\LoginService.cs" />
   </ItemGroup>
   <ItemGroup>

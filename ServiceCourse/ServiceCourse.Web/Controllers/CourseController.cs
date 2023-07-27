@@ -59,12 +59,12 @@ namespace ServiceCourse.Web.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-
         public ActionResult Create(CourseViewModel courseViewModel)
         {
             try
             {
+                //to do
+                //var teachers = service.GetTeachers();
                 CourseModel course = new CourseModel()
                 {
                     Name = courseViewModel.Name,
@@ -75,11 +75,11 @@ namespace ServiceCourse.Web.Controllers
 
                 service.CreateCourse(course);
 
-                return RedirectToAction("Index");
+                return Json(new { success = true });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return View();
+                return Json(new { success = false, errorMessage = ex.Message });
             }
         }
 
@@ -117,11 +117,11 @@ namespace ServiceCourse.Web.Controllers
 
                 service.UpdateCourse(course);
 
-                return RedirectToAction("Index");
+                return Json(new { success = true });
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new { success = false, errorMessage = ex.Message });
             }
         }
         [HttpPost]
@@ -130,9 +130,12 @@ namespace ServiceCourse.Web.Controllers
             try
             {
                 service.DeleteCourse(id);
-                return RedirectToAction("Index");
+                return Json(new { success = true });
             }
-           catch { return View(); }
+            catch(Exception ex)
+            {
+                return Json(new { success = false, errorMessage = ex.Message });
+            }
         }
     }
 }
