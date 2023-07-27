@@ -50,6 +50,7 @@
     <Compile Include="Services\CourseService.cs" />
     <Compile Include="Services\LessonService.cs" />
     <Compile Include="Services\LoginService.cs" />
+    <Compile Include="Services\TeacherService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ServiceCourse.Data\ServiceCourse.Data.csproj">

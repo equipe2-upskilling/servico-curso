@@ -23,8 +23,20 @@
         </div>
         <div class="form-group row">
             <div class="col-sm-6 mb-3 mb-sm-0">
+                <label for="Name">Imagem de capa</label>
+                @Html.EditorFor(model => model.CoverImg, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Capa" } })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
                 <label for="Name">Duração</label>
                 @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control form-control-user", @placeholder = "Duração" } })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label for="Name">Professor</label>
+                @Html.DropDownListFor(model => model.TeacherId, ViewBag.Teachers as SelectList, "Selecione um professor", new { @class = "form-control", @placeholder = "Professor" })
             </div>
         </div>
         <div class="form-group row">
@@ -65,6 +77,8 @@
                       Name: $('#Name').val(),
                       Description: $('#Description').val(),
                       Duration: $('#Duration').val(),
+                      TeacherId: $('#TeacherId').val(),
+                      CoverImg: $('#CoverImg').val(),
                       Price: price
                   };
 

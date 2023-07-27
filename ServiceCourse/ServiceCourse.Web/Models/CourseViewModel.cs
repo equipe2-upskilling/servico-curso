@@ -12,6 +12,7 @@ namespace ServiceCourse.Web.Models
         public EnrollmentStatus Status { get; set; }
         public string CoverImg { get; set; }
         public int TeacherId { get; set; }
+        public string TeacherName { get; set; }
 
         public enum EnrollmentStatus
         {

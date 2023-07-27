@@ -162,16 +162,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\AcademicServiceDbContext.cs" />
     <Compile Include="Context\DataBaseContext.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\Lesson.cs" />
     <Compile Include="Entities\Login.cs" />
     <Compile Include="Entities\Teacher.cs" />
-    <Compile Include="ExternalServices\TeacherExternalService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
     <Compile Include="Repositories\LessonRepository.cs" />
     <Compile Include="Repositories\LoginRepository.cs" />
+    <Compile Include="Repositories\TeacherRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
